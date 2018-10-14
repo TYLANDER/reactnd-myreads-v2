@@ -8,14 +8,13 @@ class BookShelf extends Component {
   state = {};
 
   render() {
-    const book = 'book';
     return (<div className="bookshelf flex">
       <h4 className="bookshelf-title text-grey-dark font-normal">
-        {this.props.shelftitle}
+        {this.props.shelf}
       </h4>
       <div className="bookshelf-books">
         <ol className="books-grid">
-          <Book book={this.props.books.book}/>
+          <Book book={this.props.book}/>
         </ol>
       </div>
     </div>);

@@ -4,8 +4,7 @@ import React, {Component} from 'react';
 class Book extends Component {
   constructor(props) {
     super(props);
-    let book = this.props.book;
-    hasThumbnail = this.hasThumbnail.bind(book);
+    //hasThumbnail = this.hasThumbnail.bind(book);
   }
   render() {
     return (<div className="book">
@@ -13,7 +12,7 @@ class Book extends Component {
         <div className="book-cover" style={{
             width: 128,
             height: 193,
-            backgroundImage: `url("${hasThumbnail}")`
+            //backgroundImage: `url("${hasThumbnail}")`
           }}></div>
         <p>
           {this.props.book}
