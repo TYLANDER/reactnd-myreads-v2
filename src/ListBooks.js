@@ -10,7 +10,7 @@ import sortBy from 'sort-by'
 
 class ListBooks extends Component {
   static propTypes = {
-    books: PropTypes.object.isRequired,
+    booksOnShelf: PropTypes.array,
     onMoveBook: PropTypes.func.isRequired
   }
 
@@ -18,51 +18,52 @@ class ListBooks extends Component {
     query: ''
   };
 
-  updateQuery = (query) => {
-  this.setState({query: query.trim()})
-  }
+  // updateQuery = (query) => {
+  //   this.setState({query: query.trim()})
+  // }
+  //
+  // clearQuery = () => {
+  //   this.setState({query: ''})
+  // }
 
-  clearQuery = () => {
-    this.setState({query: ''})
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.defaultState = {
+  //     booksOnShelf: []
+  //   };
+  //   this.state = this.defaultState;
+  // }
 
-  constructor(props) {
-    super(props);
-    this.defaultState = {
-      booksOnShelf: []
-    };
-    this.state = this.defaultState;
-  }
-/*
-  handleChangeShelf = () => {
-    let temp = this.props.booksOnShelf;
-
-    const book = temp.filter(t => t.id === bookId)[0];
-    book.shelf = e.target.value;
-    BooksAPI.update(book, e.target.value).then(response => {
-      this.setState({books: temp});
-    });
-  };
-  */
+  // componentDidUpdate(prevProps) {
+  //   console.log('this.props', this.props)
+  //   console.log('prevProps', prevProps)
+  // }
 
   render() {
     const {books, onMoveBook} = this.props
     const {query} = this.state
 
-    console.log('Listbook Props', this.props.booksOnShelf)
-    return (<div className="list-books">
+    const currentlyReadingBooks = this.props.booksOnShelf.filter(book => book.shelf === "currentlyReading");
+    const wantToReadBooks = this.props.booksOnShelf.filter(book => book.shelf === "wantToRead");
+    const readBooks = this.props.booksOnShelf.filter(book => book.shelf === "read");
+
+    console.log('currentlyReadingBooks', currentlyReadingBooks)
+    console.log('wantToReadBooks', wantToReadBooks)
+
+    console.log('Listbook Props', this.props)
+    return <div className="list-books">
       <div className="list-books-title">
         <h1>MyReads</h1>
       </div>
       <div className="list-books-content">
-        <BookShelf key="currently" book={this.props.booksOnShelf.filter(booksOnShelf => booksOnShelf.shelf === "currentlyReading")} shelf="Currently Reading"/>
-        <BookShelf key="wantToRead" book={this.props.booksOnShelf.filter(book => book.shelf === "wantToRead")} onChangeSelf={this.handleChangeShelf} shelf="Want to Read"/>
-        <BookShelf key="read" book={this.props.booksOnShelf.filter(book => book.shelf === "read")} onChangeShelf={this.handleChangeShelf} shelf="Read"/>
+        <BookShelf key="currently" books={currentlyReadingBooks} shelf="Currently Reading"/>
+        <BookShelf key="wantToRead" books={wantToReadBooks} shelf="Want to Read"/>
+        <BookShelf key="read" books={readBooks} shelf="Read"/>
       </div>
       <div className="open-search">
         <Link to="/search">Add a book</Link>
       </div>
-    </div>);
+    </div>;
   }
 }
 
