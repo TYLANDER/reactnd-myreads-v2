@@ -16,23 +16,23 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
+    this.loadBooks()
+  }
+
+  handleChangeShelf = (event, book) => {
+    console.log('Handle Change Shelf', this.props.book)
+
+    BooksAPI.update(book, event.target.value).then(books => {
+      console.log('Response', books)
+      this.loadBooks()
+    });
+    console.log('Select Value', event.target.value)
+  }
+
+  loadBooks() {
     BooksAPI.getAll().then((books) => {
-      console.log('book: ', books);
+      console.log('All books: ', books);
       this.setState({books})
-    })
-  }
-
-  handleChangeShelf = (book : any, shelf : string) => {
-    BooksAPI.update(book, shelf).then(response => {
-      this.getBooksOnShelf();
-    })
-  }
-
-  getBooksOnShelf() {
-    BooksAPI.getAll().then(book => {
-      this.setState(state => ({
-        books: state.books.concat([book])
-      }))
     })
   }
 
@@ -40,8 +40,8 @@ class BooksApp extends React.Component {
     console.log('App Props', this.props)
     console.log('App state', this.state)
     return (<div className="app">
-      <Route path="/" render={() => (<ListBooks onMoveBook={this.handleChangeShelf} booksOnShelf={this.state.books}/>)}/>
-      <Route path="/search" render={() => <SearchPage onChangeShelf={this.handleChangeShelf} booksOnShelf={this.state.books}/>}/>
+      <Route path="/" render={() => (<ListBooks handleChangeShelf={this.handleChangeShelf} booksOnShelf={this.state.books}/>)}/>
+      <Route path="/search" render={() => <SearchPage handleChangeShelf={this.handleChangeShelf} booksOnShelf={this.state.books}/>}/>
     </div>)
   }
 }

@@ -56,9 +56,9 @@ class ListBooks extends Component {
         <h1>MyReads</h1>
       </div>
       <div className="list-books-content">
-        <BookShelf key="currently" books={currentlyReadingBooks} shelf="Currently Reading"/>
-        <BookShelf key="wantToRead" books={wantToReadBooks} shelf="Want to Read"/>
-        <BookShelf key="read" books={readBooks} shelf="Read"/>
+        <BookShelf key="currently" books={currentlyReadingBooks} shelf="Currently Reading" handleChangeShelf={this.props.handleChangeShelf}/>
+        <BookShelf key="wantToRead" books={wantToReadBooks} shelf="Want to Read" handleChangeShelf={this.props.handleChangeShelf}/>
+        <BookShelf key="read" books={readBooks} shelf="Read" handleChangeShelf={this.props.handleChangeShelf}/>
       </div>
       <div className="open-search">
         <Link to="/search">Add a book</Link>

@@ -1,23 +1,9 @@
 // child component
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import BookShelfChanger from './BookShelfChanger'
 import * as BooksAPI from './BooksAPI'
 
 class Book extends Component {
-
-  constructor(props) {
-    super(props);
-    //hasThumbnail = this.hasThumbnail.bind(book);
-  }
-
-  handleChangeShelf = (event) => {
-    console.log('Handle Change Shelf', this.props.book)
-
-    BooksAPI.update(this.props.book, event.target.value).then(response => {
-      console.log('Response', response)
-    });
-    console.log('Select Value', event.target.value)
-  };
 
   render() {
     console.log('book this.props', this.props)
@@ -33,7 +19,7 @@ class Book extends Component {
       </div>
       <div className="book-title">{title}</div>
       <div className="book-authors">{authors}</div>
-      <BookShelfChanger onChangeShelf={this.handleChangeShelf}/>
+      <BookShelfChanger shelf={this.props.book.shelf} handleChangeShelf={(event) => this.props.handleChangeShelf(event, this.props.book)}/>
     </div>;
   }
 }

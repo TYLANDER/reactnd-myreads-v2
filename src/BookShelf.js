@@ -20,7 +20,7 @@ class BookShelf extends Component {
 
     const newArrayOfBooks = books.map(book => {
       console.log('book', book)
-      return <Book book={book} key={book.title}/>
+      return <Book book={book} key={book.title} handleChangeShelf={this.props.handleChangeShelf}/>
     })
 
     return (<div className="bookshelf flex">
