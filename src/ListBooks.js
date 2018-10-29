@@ -18,27 +18,6 @@ class ListBooks extends Component {
     query: ''
   };
 
-  // updateQuery = (query) => {
-  //   this.setState({query: query.trim()})
-  // }
-  //
-  // clearQuery = () => {
-  //   this.setState({query: ''})
-  // }
-
-  // constructor(props) {
-  //   super(props);
-  //   this.defaultState = {
-  //     booksOnShelf: []
-  //   };
-  //   this.state = this.defaultState;
-  // }
-
-  // componentDidUpdate(prevProps) {
-  //   console.log('this.props', this.props)
-  //   console.log('prevProps', prevProps)
-  // }
-
   render() {
     const {books, onMoveBook} = this.props
     const {query} = this.state
@@ -47,10 +26,6 @@ class ListBooks extends Component {
     const wantToReadBooks = this.props.booksOnShelf.filter(book => book.shelf === "wantToRead");
     const readBooks = this.props.booksOnShelf.filter(book => book.shelf === "read");
 
-    console.log('currentlyReadingBooks', currentlyReadingBooks)
-    console.log('wantToReadBooks', wantToReadBooks)
-
-    console.log('Listbook Props', this.props)
     return <div className="list-books">
       <div className="list-books-title">
         <h1>MyReads</h1>

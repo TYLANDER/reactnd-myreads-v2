@@ -8,7 +8,9 @@ class Book extends Component {
   render() {
     console.log('book this.props', this.props)
     const {title, authors, imageLinks} = this.props.book
-
+    if (imageLinks == null) 
+      return null;
+    
     return <div className="book">
       <div className="book-top">
         <div className="book-cover" style={{
