@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import * as BooksAPI from './BooksAPI'
-
+import Book from './Book.js'
 
 class SearchPage extends Component {
-  static propTypes = {
-    books: PropTypes.object.isRequired,
-    onChangeShelf: PropTypes.func.isRequired,
-    searchResults: PropTypes.array.isRequired
-  }
+  // static propTypes = {
+  //   books: PropTypes.object.isRequired,
+  //   onChangeShelf: PropTypes.func.isRequired,
+  //   searchResults: PropTypes.array.isRequired
+  // }
 
   state = {
     query: '',
@@ -18,16 +18,18 @@ class SearchPage extends Component {
   }
 
   updateQuery = (query) => {
-    this.setState({ query: query.trim() })
+    this.setState({query: query.trim()})
     this.searchForBooks(query);
   }
 
   searchForBooks = (query) => {
     if (query) {
+      console.log("Search For Books Query", query)
       BooksAPI.search(query).then((searchResults) => {
+        console.log('Search Results', searchResults)
         searchResults.error
           ? this.setState({searchResults: []})
-          : this.setState({searchResults: searchResults});
+          : this.setState({searchResults});
       })
     } else {
       this.setState({searchResults: []})
@@ -35,14 +37,19 @@ class SearchPage extends Component {
   }
 
   render() {
-    const { books, onChangeShelf } = this.props
-    const { query } = this.state
-    return (
-      <div className="search-books">
-        <div className="search-books-bar">
-          <a className="close-search">Close</a>
-          <div className="search-books-input-wrapper">
-            {/*
+    const {books, onChangeShelf} = this.props
+
+    const newArrayOfSearchResults = this.state.searchResults.map(book => {
+      console.log('Serached Book', book)
+      return <Book book={book} key={book.title} handleChangeShelf={this.props.handleChangeShelf}/>
+    })
+
+    const {query} = this.state
+    return (<div className="search-books">
+      <div className="search-books-bar">
+        <a className="close-search" href="/">Close</a>
+        <div className="search-books-input-wrapper">
+          {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
               You can find these search terms here:
               https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
@@ -50,20 +57,16 @@ class SearchPage extends Component {
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */
-            }
-            <input
-            type='text'
-            placeholder='Search contacts'
-            value={query}
-            onChange={(event) => this.updateQuery(event.target.value)}
-          />
-          </div>
-        </div>
-        <div className="search-books-results">
-          <ol className="books-grid"></ol>
+          }
+          <input type='text' placeholder='Search contacts' value={query} onChange={(event) => this.updateQuery(event.target.value)}/>
         </div>
       </div>
-    )
+      <div className="search-books-results">
+        <ol className="books-grid">
+          {newArrayOfSearchResults}
+        </ol>
+      </div>
+    </div>)
   }
 }
 

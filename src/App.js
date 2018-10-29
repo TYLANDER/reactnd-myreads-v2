@@ -20,13 +20,12 @@ class BooksApp extends React.Component {
   }
 
   handleChangeShelf = (event, book) => {
-    console.log('Handle Change Shelf', this.props.book)
 
     BooksAPI.update(book, event.target.value).then(books => {
-      console.log('Response', books)
+
       this.loadBooks()
     });
-    console.log('Select Value', event.target.value)
+
   }
 
   loadBooks() {
@@ -37,10 +36,8 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    console.log('App Props', this.props)
-    console.log('App state', this.state)
     return (<div className="app">
-      <Route path="/" render={() => (<ListBooks handleChangeShelf={this.handleChangeShelf} booksOnShelf={this.state.books}/>)}/>
+      <Route exact="exact" path="/" render={() => (<ListBooks handleChangeShelf={this.handleChangeShelf} booksOnShelf={this.state.books}/>)}/>
       <Route path="/search" render={() => <SearchPage handleChangeShelf={this.handleChangeShelf} booksOnShelf={this.state.books}/>}/>
     </div>)
   }
