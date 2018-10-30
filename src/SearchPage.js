@@ -19,15 +19,13 @@ class SearchPage extends Component {
   }
 
   updateQuery = (query) => {
-    this.setState({query: query})
+    this.setState({query})
     this.searchForBooks(query);
   }
 
   searchForBooks = (query) => {
     if (query) {
-      console.log("Search For Books Query", query)
       BooksAPI.search(query).then((searchResults) => {
-        console.log('Search Results', searchResults)
         searchResults.error
           ? this.setState({searchResults: []})
           : this.setState({searchResults});
@@ -39,10 +37,15 @@ class SearchPage extends Component {
 
   render() {
     const {books, onChangeShelf} = this.props
+    console.log('State: ', this.state)
+    const newArrayOfSearchResults = this.state.searchResults.map(searchedBook => {
+      const matchingBook = this.props.booksOnShelf.filter(bookWithShelf => bookWithShelf.id === searchedBook.id)[0]
+      console.log('matchingBook', matchingBook)
+      if (matchingBook == null) 
+        return null
 
-    const newArrayOfSearchResults = this.state.searchResults.map(book => {
-      console.log('Serached Book', book)
-      return <Book book={book} key={book.title} handleChangeShelf={this.props.handleChangeShelf}/>
+      searchedBook.shelf = matchingBook.shelf
+      return <Book book={searchedBook} key={searchedBook.id} handleChangeShelf={this.props.handleChangeShelf}/>
     })
 
     const {query} = this.state
