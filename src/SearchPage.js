@@ -4,6 +4,7 @@ import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book.js'
+import DebounceInput from 'react-debounce-input'
 
 class SearchPage extends Component {
   // static propTypes = {
@@ -18,7 +19,7 @@ class SearchPage extends Component {
   }
 
   updateQuery = (query) => {
-    this.setState({query: query.trim()})
+    this.setState({query: query})
     this.searchForBooks(query);
   }
 
@@ -58,7 +59,7 @@ class SearchPage extends Component {
               you don't find a specific author or title. Every search is limited by search terms.
             */
           }
-          <input type='text' placeholder='Search contacts' value={query} onChange={(event) => this.updateQuery(event.target.value)}/>
+          <DebounceInput type='text' placeholder='Search contacts' value={query} debounceTimeout={250} onChange={(event) => this.updateQuery(event.target.value)}/>
         </div>
       </div>
       <div className="search-books-results">
