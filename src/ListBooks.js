@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import './App.css'
-import * as BooksAPI from './BooksAPI'
 import BookShelf from './BookShelf'
-import Book from './Book'
 import PropTypes from 'prop-types'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
 
 class ListBooks extends Component {
   static propTypes = {
@@ -19,8 +15,8 @@ class ListBooks extends Component {
   };
 
   render() {
-    const {books, onMoveBook} = this.props
-    const {query} = this.state
+    //const {books, onMoveBook} = this.props
+    //  const {query} = this.state
 
     const currentlyReadingBooks = this.props.booksOnShelf.filter(book => book.shelf === "currentlyReading");
     const wantToReadBooks = this.props.booksOnShelf.filter(book => book.shelf === "wantToRead");

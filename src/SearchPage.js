@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book.js'
 import DebounceInput from 'react-debounce-input'
@@ -36,7 +33,7 @@ class SearchPage extends Component {
   }
 
   render() {
-    const {books, onChangeShelf} = this.props
+
     console.log('State: ', this.state)
     const newArrayOfSearchResults = this.state.searchResults.map(searchedBook => {
       const matchingBook = this.props.booksOnShelf.filter(bookWithShelf => bookWithShelf.id === searchedBook.id)[0]
