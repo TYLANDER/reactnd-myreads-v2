@@ -4,11 +4,6 @@ import Book from './Book.js'
 import DebounceInput from 'react-debounce-input'
 
 class SearchPage extends Component {
-  // static propTypes = {
-  //   books: PropTypes.object.isRequired,
-  //   onChangeShelf: PropTypes.func.isRequired,
-  //   searchResults: PropTypes.array.isRequired
-  // }
 
   state = {
     query: '',
@@ -39,7 +34,7 @@ class SearchPage extends Component {
       const matchingBook = this.props.booksOnShelf.filter(bookWithShelf => bookWithShelf.id === searchedBook.id)[0]
       console.log('matchingBook', matchingBook)
       if (matchingBook == null) 
-        return null
+        return <Book book={searchedBook} key={searchedBook.id} handleChangeShelf={this.props.handleChangeShelf}/>
 
       searchedBook.shelf = matchingBook.shelf
       return <Book book={searchedBook} key={searchedBook.id} handleChangeShelf={this.props.handleChangeShelf}/>

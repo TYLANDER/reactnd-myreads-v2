@@ -6,8 +6,7 @@ import PropTypes from 'prop-types'
 
 class ListBooks extends Component {
   static propTypes = {
-    booksOnShelf: PropTypes.array,
-    onMoveBook: PropTypes.func.isRequired
+    booksOnShelf: PropTypes.array
   }
 
   state = {
@@ -15,8 +14,6 @@ class ListBooks extends Component {
   };
 
   render() {
-    //const {books, onMoveBook} = this.props
-    //  const {query} = this.state
 
     const currentlyReadingBooks = this.props.booksOnShelf.filter(book => book.shelf === "currentlyReading");
     const wantToReadBooks = this.props.booksOnShelf.filter(book => book.shelf === "wantToRead");
